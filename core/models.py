@@ -7,70 +7,70 @@ from .utils import B0, construct_spin_matrices
 ###################### Constants ###########################
 
 # Strain terms (MHz) 
-E_gs=0.0 #7.5 is an usual value
-E_es=70.0
+E_GS=0.0 #7.5 is an usual value
+E_ES=70.0
 
 # Zero-field splitting (MHz)
-D_gs = 2870.0
-D_es = 1420.0
+D_GS = 2870.0
+D_ES = 1420.0
 
 # Hyperfine interaction parameters (MHz)
 # Model 1 & 3
-a_gs=3.03,3.65
-a_es=-57.8,-39.2
+A_GS=3.03,3.65
+A_ES=-57.8,-39.2
 
 # Model 2
-A_par = 3.4,-58.1
-A_perp = 7.8,-77.0
-A_ani = 0.0, 0.0
-A_perp_prime = 0.0,0.0
-phi_H = 0.0
+A_PAR = 3.4,-58.1
+A_PERP = 7.8,-77.0
+A_ANI = 0.0, 0.0
+A_PERP_PRIME = 0.0,0.0
+PHI_H = 0.0
 
 # Magnetic moments (MHz/G)
 # NV
-mu_e = 2.8 # (Mhz/G)
+MU_E = 2.8 # (Mhz/G)
 # ^{15} N
-mu_n = 431.7*1e-6 # (MHz/G)
+MU_N = 431.7*1e-6 # (MHz/G)
 
 # t1 times (microseconds)
 # NV
-t1_gs=1e3
-t1_es=1e3
+T1_GS=1e3
+T1_ES=1e3
 # ^{15} N
-t1_n=1e5
+T1_N=1e5
 
 # t2 times (microseconds)
 # NV
-t2_gs=1.5
-t2_es=6*1e-3
+T2_GS=1.5
+T2_ES=6*1e-3
 # ^{15} N
-t2_n=1e3
+T2_N=1e3
 
-# Dephasing and Decoherence rates (MHz)
+# Dephasing and DecohereNCe rates (MHz)
 # NV
-gamma_gs = 1/t1_gs,1/t2_gs
-gamma_es = 1/t1_es,1/t2_es
+GAMMA_GS = 1/T1_GS,1/T2_GS
+GAMMA_ES = 1/T1_ES,1/T2_ES
 # ^{15} N
-gamma_n = 1/t1_n,1/t2_n
+GAMMA_N = 1/T1_N,1/T2_N
 
 # Pump rate
-W_p = 1.9
+W_P = 1.9
 
-# Rabi frequency (MHz)
-Om_r = 15.7 # I had to modify this value to reproduce the results of the paper (original value was 15)
+# Rabi frequeNCy (MHz)
+OM_R = 15.7 # I had to modify this value to reproduce the results of the paper (original value was 15)
 
-# Driving frequency (MHz)
-omega = 0.1
+# Driving frequeNCy (MHz)
+OMEGA_MG = 0.1
 
-# Choice of model parameters (k_ind)
-k_ind=2
+# Choice of model parameters (K_IND)
+K_IND=2
 # Transition rates
-# k_41,k_52,k_63 - radiative rates (K_s[k_ind][0])
-# k_47 - non-radiative rate from excided state to ISC (K_s[k_ind][1])
-# k_57,k_67 - non-radiative rate from excided state to ISC (K_s[k_ind][2])
-# k_71 - non-radiative rate from ISC to ground state (K_s[k_ind][3])
-# k_72,k_73 - non-radiative rates from ISC to ground state (K_s[k_ind][4])
-K_s=[[66.0,0.0,57.0,1.0,0.7],
+# k_41,k_52,k_63 - radiative rates (K_S[K_IND][0])
+# k_47 - non-radiative rate from excided state to ISC (K_S[K_IND][1])
+# k_57,k_67 - non-radiative rate from excided state to ISC (K_S[K_IND][2])
+# k_71 - non-radiative rate from ISC to GROUND state (K_S[K_IND][3])
+# k_72,k_73 - non-radiative rates from ISC to GROUND state (K_S[K_IND][4])
+K_S=[[66.0,0.0,57.0,1.0,0.7],
     [77.0,0.0,30.0,3.3,0.0],
     [62.7,12.97,80.0,3.45,1.08],
     [63.2,10.8,60.7,0.8,0.4],
@@ -78,48 +78,48 @@ K_s=[[66.0,0.0,57.0,1.0,0.7],
     [64.0,11.8,79.8,5.6,0.0]]
 
 # Dimension of the Hilbert space
-dim = 7
+DIM = 7
 
 # States
 # NV
-excited = qt.basis(dim, 4), qt.basis(dim, 3),qt.basis(dim, 5) # |+1>_es, |0>_es, |-1>_es
-isc = qt.basis(dim, 6)
-ground = qt.basis(dim, 1), qt.basis(dim, 0), qt.basis(dim, 2) # |+1>_gs, |0>_gs, |-1>_gs
+EXCITED = qt.basis(DIM, 4), qt.basis(DIM, 3),qt.basis(DIM, 5) # |+1>_es, |0>_es, |-1>_es
+ISC = qt.basis(DIM, 6)
+GROUND = qt.basis(DIM, 1), qt.basis(DIM, 0), qt.basis(DIM, 2) # |+1>_gs, |0>_gs, |-1>_gs
 # ^{15} N
-nit = qt.basis(2, 0), qt.basis(2, 1)
+NIT = qt.basis(2, 0), qt.basis(2, 1)
 
-n1, n2, n3 = (
-    ground[1] * ground[1].dag(), #type: ignore
-    ground[2] * ground[2].dag(), #type: ignore
-    ground[0] * ground[0].dag(), #type: ignore
+N1, N2, N3 = (
+    GROUND[1] * GROUND[1].dag(), #type: ignore
+    GROUND[2] * GROUND[2].dag(), #type: ignore
+    GROUND[0] * GROUND[0].dag(), #type: ignore
 )
-n4, n5, n6 = (
-    excited[1] * excited[1].dag(), #type: ignore
-    excited[2] * excited[2].dag(), #type: ignore
-    excited[0] * excited[0].dag(), #type: ignore
+N4, N5, N6 = (
+    EXCITED[1] * EXCITED[1].dag(), #type: ignore
+    EXCITED[2] * EXCITED[2].dag(), #type: ignore
+    EXCITED[0] * EXCITED[0].dag(), #type: ignore
 )
-n7, nc = (
-    isc * isc.dag(), #type: ignore
-    ground[2] * ground[1].dag(), #type: ignore
+N7, NC = (
+    ISC * ISC.dag(), #type: ignore
+    GROUND[2] * GROUND[1].dag(), #type: ignore
 )
 
 # Operators
 # MV
-sx_gs, sy_gs, sz_gs = construct_spin_matrices(ground)
-sx_es, sy_es, sz_es = construct_spin_matrices(excited)
-sm_gs,sp_gs= sx_gs - 1j * sy_gs, sx_gs + 1j * sy_gs
-sm_es,sp_es= sx_es - 1j * sy_es, sx_es + 1j * sy_es
+SX_GS, SY_GS, SZ_GS = construct_spin_matrices(GROUND)
+SX_ES, SY_ES, SZ_ES = construct_spin_matrices(EXCITED)
+SM_GS,SP_GS= SX_GS - 1j * SY_GS, SX_GS + 1j * SY_GS
+SM_ES,SP_ES= SX_ES - 1j * SY_ES, SX_ES + 1j * SY_ES
 
-S_gs=np.array([sx_gs, sy_gs, sz_gs])
-S_es=np.array([sx_es, sy_es, sz_es])
-IdNV=qt.qeye(dim)
+S_GS=np.array([SX_GS, SY_GS, SZ_GS])
+S_ES=np.array([SX_ES, SY_ES, SZ_ES])
+ID_NV=qt.qeye(DIM)
 
 # ^{15} N
-sx_n, sy_n, sz_n = qt.sigmax()*0.5, qt.sigmay()*0.5, qt.sigmaz()*0.5
-sm_n,sp_n=sx_n-1j*sy_n,sx_n+1j*sy_n
+SX_N, SY_N, SZ_N = qt.sigmax()*0.5, qt.sigmay()*0.5, qt.sigmaz()*0.5
+SM_N,SP_N=SX_N-1j*SY_N,SX_N+1j*SY_N
 
-S_n=np.array([sx_n,sy_n,sz_n])
-IdN15 = qt.qeye(2)
+S_N=np.array([SX_N,SY_N,SZ_N])
+ID_N15 = qt.qeye(2)
 
 # Static Magnetic Field (G)
 B = B0(100.0,0.0,0.0) # (G)
@@ -133,17 +133,17 @@ B = B0(100.0,0.0,0.0) # (G)
 def H_mg(om_r):
     """Returns the Hamiltonian of the system based on whether the MW is on or off
     Parameters:
-        om_r (float) - Rabi frequency
+        om_r (float) - Rabi frequeNCy
 
     Returns:
-        H_0 (list) - list of the Hamiltonian terms and their time dependence
+        Ham_0 (list) - list of the Hamiltonian terms and their time dependeNCe
     """
-    H_0 = [[0.5 * om_r * (ground[1]*ground[2].dag()), "exp(1j*w*t)"],  #type: ignore
-           [0.5 * om_r * (ground[2]*ground[1].dag()), "exp(-1j*w*t)"]] #type: ignore
-    return H_0
+    Ham_0 = [[0.5 * om_r * (GROUND[1]*GROUND[2].dag()), "exp(1j*w*t)"],  #type: ignore
+           [0.5 * om_r * (GROUND[2]*GROUND[1].dag()), "exp(-1j*w*t)"]] #type: ignore
+    return Ham_0
 
 
-def L_mg(w_p,k_index=k_ind, K_s=K_s):
+def L_mg(w_p,k_index=K_IND, K_S=K_S):
     """Returns the Lindblad operators of the system.
     
     Parameters:
@@ -152,42 +152,42 @@ def L_mg(w_p,k_index=k_ind, K_s=K_s):
     Returns:
         c_ops (list) - list of the Lindblad operators
     """
-    k41 = K_s[k_index][0]
-    k52 = K_s[k_index][0]
-    k63 = K_s[k_index][0]
-    k57 = K_s[k_index][2]
-    k67 = K_s[k_index][2]
-    k47 = K_s[k_index][1]
-    k71 = K_s[k_index][3]
-    k72 = K_s[k_index][4]
-    k73 = K_s[k_index][4]
+    k41 = K_S[k_index][0]
+    k52 = K_S[k_index][0]
+    k63 = K_S[k_index][0]
+    k57 = K_S[k_index][2]
+    k67 = K_S[k_index][2]
+    k47 = K_S[k_index][1]
+    k71 = K_S[k_index][3]
+    k72 = K_S[k_index][4]
+    k73 = K_S[k_index][4]
     
     c_ops = []
 
-    c_ops.append(np.sqrt(w_p) * (excited[1] * ground[1].dag()))  # n1 to n4 #type: ignore 
-    c_ops.append(np.sqrt(w_p) * (excited[2] * ground[2].dag()))  # n2 to n5 #type: ignore
-    c_ops.append(np.sqrt(w_p) * (excited[0] * ground[0].dag())) # n3 to n6  #type: ignore
+    c_ops.append(np.sqrt(w_p) * (EXCITED[1] * GROUND[1].dag()))  # N1 to N4 #type: ignore 
+    c_ops.append(np.sqrt(w_p) * (EXCITED[2] * GROUND[2].dag()))  # N2 to N5 #type: ignore
+    c_ops.append(np.sqrt(w_p) * (EXCITED[0] * GROUND[0].dag())) # N3 to N6  #type: ignore
 
-    c_ops.append(np.sqrt(k41) * (ground[1] * excited[1].dag()))  # n4 to n1 #type: ignore
-    c_ops.append(np.sqrt(k71) * (ground[1] * isc.dag()))  # n7 to n1    #type: ignore
+    c_ops.append(np.sqrt(k41) * (GROUND[1] * EXCITED[1].dag()))  # N4 to N1 #type: ignore
+    c_ops.append(np.sqrt(k71) * (GROUND[1] * ISC.dag()))  # N7 to N1    #type: ignore
 
-    c_ops.append(np.sqrt(k52) * (ground[2] * excited[2].dag()))  # n5 to n2 #type: ignore
-    c_ops.append(np.sqrt(k72) * (ground[2] * isc.dag()))  # n7 to n2 #type: ignore
+    c_ops.append(np.sqrt(k52) * (GROUND[2] * EXCITED[2].dag()))  # N5 to N2 #type: ignore
+    c_ops.append(np.sqrt(k72) * (GROUND[2] * ISC.dag()))  # N7 to N2 #type: ignore
 
-    c_ops.append(np.sqrt(k63) * (ground[0] * excited[0].dag()))  # n6 to n3 #type: ignore
-    c_ops.append(np.sqrt(k73) * (ground[0] * isc.dag()))  # n7 to n3    #type: ignore
+    c_ops.append(np.sqrt(k63) * (GROUND[0] * EXCITED[0].dag()))  # N6 to N3 #type: ignore
+    c_ops.append(np.sqrt(k73) * (GROUND[0] * ISC.dag()))  # N7 to N3    #type: ignore
 
-    c_ops.append(np.sqrt(k47) * (isc * excited[1].dag()))  # n4 to n7   #type: ignore
-    c_ops.append(np.sqrt(k57) * (isc * excited[2].dag()))  # n5 to n7   #type: ignore
-    c_ops.append(np.sqrt(k67) * (isc * excited[0].dag()))  # n6 to n7   #type: ignore
+    c_ops.append(np.sqrt(k47) * (ISC * EXCITED[1].dag()))  # N4 to N7   #type: ignore
+    c_ops.append(np.sqrt(k57) * (ISC * EXCITED[2].dag()))  # N5 to N7   #type: ignore
+    c_ops.append(np.sqrt(k67) * (ISC * EXCITED[0].dag()))  # N6 to N7   #type: ignore
     
-    # Add collapse operators for decoherence
-    c_ops.append(np.sqrt(gamma_gs[1]) * sz_gs)
-    c_ops.append(np.sqrt(gamma_gs[0]/2) * (sm_gs))
-    c_ops.append(np.sqrt(gamma_gs[0]/2) * (sp_gs))
-    c_ops.append(np.sqrt(gamma_es[1]) * sz_es)
-    c_ops.append(np.sqrt(gamma_es[0]/2) * (sm_es))
-    c_ops.append(np.sqrt(gamma_es[0]/2) * (sp_es))
+    # Add collapse operators for decohereNCe
+    c_ops.append(np.sqrt(GAMMA_GS[1]) * SZ_GS)
+    c_ops.append(np.sqrt(GAMMA_GS[0]/2) * (SM_GS))
+    c_ops.append(np.sqrt(GAMMA_GS[0]/2) * (SP_GS))
+    c_ops.append(np.sqrt(GAMMA_ES[1]) * SZ_ES)
+    c_ops.append(np.sqrt(GAMMA_ES[0]/2) * (SM_ES))
+    c_ops.append(np.sqrt(GAMMA_ES[0]/2) * (SP_ES))
     return c_ops
 
 def dynamics_mg(
@@ -196,28 +196,28 @@ def dynamics_mg(
     om=None,
     om_r=None,
     w_p=None,
-    k_index=k_ind,
+    k_index=K_IND,
     ti=0.0,    
     mode="Free",
     progress_bar="ON",
     i=0,
 ):
     """
-    Perform dynamics_mg simulation based on the given parameters, including optical transition rates index.
-    Where, when using k_index=2 -> K_s[k_index]=[62.7,12.97,80.0,3.45,1.08], and the full K_s list is:
-        K_s=[[66.0,0.0,57.0,1.0,0.7],
+    Perform dynamics_mg simulation based on the given parameters, iNCluding optical transition rates index.
+    Where, when using k_index=2 -> K_S[k_index]=[62.7,12.97,80.0,3.45,1.08], and the full K_S list is:
+        K_S=[[66.0,0.0,57.0,1.0,0.7],
              [77.0,0.0,30.0,3.3,0.0],
              [62.7,12.97,80.0,3.45,1.08],
              [63.2,10.8,60.7,0.8,0.4],
              [67.4,9.9,96.6,4.83,1.055]]
     Parameters:
     - dt (float): Time step for the calculations.
-    - init_state: Initial state for the simulation.
-    - om (float, optional): Angular frequency of the system. Defaults to omega.
-    - om_r (float, optional): Angular frequency for MW-ON evolution. Defaults to Om_r.
-    - w_p (float, optional): Frequency for laser-ON evolution. Defaults to W_p.
-    - k_index=k_index (int, optional): Index for the optical transition rates. Defaults to k_ind.
-    - ti (float, optional): Initial time for the simulation. Defaults to 0.0.
+    - init_state: INITial state for the simulation.
+    - om (float, optional): Angular frequeNCy of the system. Defaults to OMEGA.
+    - om_r (float, optional): Angular frequeNCy for MW-ON evolution. Defaults to OM_R.
+    - w_p (float, optional): FrequeNCy for laser-ON evolution. Defaults to W_P.
+    - k_index=k_index (int, optional): Index for the optical transition rates. Defaults to K_IND.
+    - ti (float, optional): INITial time for the simulation. Defaults to 0.0.
     - mode (str, optional): Mode of the simulation. Can be "Free", "MW", "Laser", or "Laser-MW". Defaults to "Free".
     - progress_bar (str, optional): Progress bar option. Can be "ON" or "OFF". Defaults to "ON".
     - i (int, optional): Iteration number. Defaults to 0.
@@ -227,9 +227,9 @@ def dynamics_mg(
     - result: Result of the simulation.
     """
     # Default values
-    if om is None: om = omega
-    if om_r is None: om_r = Om_r
-    if w_p is None: w_p = W_p
+    if om is None: om = OMEGA_MG
+    if om_r is None: om_r = OM_R
+    if w_p is None: w_p = W_P
 
     # Arguments for the Hamiltonian
     args = {"w": om}
@@ -243,16 +243,16 @@ def dynamics_mg(
     match mode:
         case "Free":
             c_ops = L_mg(0.0, k_index=k_index)
-            H = H_mg(0.0)
+            Ham = H_mg(0.0)
         case "MW":
             c_ops = L_mg(0.0, k_index=k_index)
-            H = H_mg(om_r)
+            Ham = H_mg(om_r)
         case "Laser":
             c_ops = L_mg(w_p, k_index=k_index)
-            H = H_mg(0.0)
+            Ham = H_mg(0.0)
         case "Laser-MW":
             c_ops = L_mg(w_p, k_index=k_index)
-            H = H_mg(om_r)
+            Ham = H_mg(om_r)
         case _:
             raise ValueError('mode must be one of "Free", "MW", "Laser", or "Laser-MW"')
     
@@ -260,7 +260,7 @@ def dynamics_mg(
     match progress_bar:
         case "OFF":
             result = qt.mesolve(
-                H,
+                Ham,
                 init_state,
                 np.linspace(ti, tf, t_bins + 1),
                 c_ops,
@@ -270,7 +270,7 @@ def dynamics_mg(
         case "ON":
             print(f"{mode} {int(i + 1)} \n ti | tf \n {int(ti)} | {int(tf)}")
             result = qt.mesolve(
-                H,
+                Ham,
                 init_state,
                 np.linspace(ti, tf, t_bins + 1),
                 c_ops,
@@ -286,67 +286,67 @@ def dynamics_mg(
 ############### Model 1 + HF #################
 ##############################################
 
-def H_mg_hf(om_r,a_gs=a_gs,a_es=a_es):
+def H_mg_hf(om_r,A_GS=A_GS,A_ES=A_ES):
     """Returns the Hamiltonian of the system based on whether the MW is on or off
     Parameters:
-        om_r (float) - Rabi frequency
+        om_r (float) - Rabi frequeNCy
 
     Returns:
-        H_0 (list) - list of the Hamiltonian terms and their time dependence
+        Ham_0 (list) - list of the Hamiltonian terms and their time dependeNCe
     """
-    H_0 = [[(0.5 * om_r * (ground[1]*ground[2].dag()))&IdN15, "exp(1j*w*t)"],  #type: ignore
-           [(0.5 * om_r * (ground[2]*ground[1].dag()))&IdN15, "exp(-1j*w*t)"], #type: ignore
-           a_gs[0]*(sz_gs&sz_n) + a_gs[1]*((sx_gs&sx_n) + (sy_gs&sy_n)),
-           a_es[0]*(sz_es&sz_n) + a_es[1]*((sx_es&sx_n) + (sy_es&sy_n))]
-    H_n=[[IdNV&(0.5*om_r*(mu_n/mu_e)*(nit[0]*nit[1].dag())),"exp(1j*w*t)"],   #type: ignore
-          [IdNV&(0.5*om_r*(mu_n/mu_e)*(nit[1]*nit[0].dag())),"exp(-1j*w*t)"]] #type: ignore
-    return [*H_0 , *H_n]
+    Ham_0 = [[(0.5 * om_r * (GROUND[1]*GROUND[2].dag()))&ID_N15, "exp(1j*w*t)"],  #type: ignore
+           [(0.5 * om_r * (GROUND[2]*GROUND[1].dag()))&ID_N15, "exp(-1j*w*t)"], #type: ignore
+           A_GS[0]*(SZ_GS&SZ_N) + A_GS[1]*((SX_GS&SX_N) + (SY_GS&SY_N)),
+           A_ES[0]*(SZ_ES&SZ_N) + A_ES[1]*((SX_ES&SX_N) + (SY_ES&SY_N))]
+    H_n=[[ID_NV&(0.5*om_r*(MU_N/MU_E)*(NIT[0]*NIT[1].dag())),"exp(1j*w*t)"],   #type: ignore
+          [ID_NV&(0.5*om_r*(MU_N/MU_E)*(NIT[1]*NIT[0].dag())),"exp(-1j*w*t)"]] #type: ignore
+    return [*Ham_0 , *H_n]
 
-def L_mg_hf(w_p,k_index=k_ind, K_s=K_s):
+def L_mg_hf(w_p,k_index=K_IND, K_S=K_S):
     """Returns the Lindblad operators of the system
     Parameters:
         w_p (float) - Laser pump rate
     Returns:
         c_ops (list) - list of the Lindblad operators
     """
-    k41 = K_s[k_index][0]
-    k52 = K_s[k_index][0]
-    k63 = K_s[k_index][0]
-    k57 = K_s[k_index][2]
-    k67 = K_s[k_index][2]
-    k47 = K_s[k_index][1]
-    k71 = K_s[k_index][3]
-    k72 = K_s[k_index][4]
-    k73 = K_s[k_index][4]
+    k41 = K_S[k_index][0]
+    k52 = K_S[k_index][0]
+    k63 = K_S[k_index][0]
+    k57 = K_S[k_index][2]
+    k67 = K_S[k_index][2]
+    k47 = K_S[k_index][1]
+    k71 = K_S[k_index][3]
+    k72 = K_S[k_index][4]
+    k73 = K_S[k_index][4]
     
     c_ops = []
 
-    c_ops.append((np.sqrt(w_p) * (excited[1] * ground[1].dag()))&IdN15)  # n1 to n4 #type: ignore
-    c_ops.append((np.sqrt(w_p) * (excited[2] * ground[2].dag()))&IdN15)  # n2 to n5 #type: ignore
-    c_ops.append((np.sqrt(w_p) * (excited[0] * ground[0].dag()))&IdN15) # n3 to n6 #type: ignore
+    c_ops.append((np.sqrt(w_p) * (EXCITED[1] * GROUND[1].dag()))&ID_N15)  # N1 to N4 #type: ignore
+    c_ops.append((np.sqrt(w_p) * (EXCITED[2] * GROUND[2].dag()))&ID_N15)  # N2 to N5 #type: ignore
+    c_ops.append((np.sqrt(w_p) * (EXCITED[0] * GROUND[0].dag()))&ID_N15) # N3 to N6 #type: ignore
 
-    c_ops.append((np.sqrt(k41) * (ground[1] * excited[1].dag()))&IdN15)  # n4 to n1 #type: ignore
-    c_ops.append((np.sqrt(k71) * (ground[1] * isc.dag()))&IdN15)  # n7 to n1 #type: ignore
+    c_ops.append((np.sqrt(k41) * (GROUND[1] * EXCITED[1].dag()))&ID_N15)  # N4 to N1 #type: ignore
+    c_ops.append((np.sqrt(k71) * (GROUND[1] * ISC.dag()))&ID_N15)  # N7 to N1 #type: ignore
 
-    c_ops.append((np.sqrt(k52) * (ground[2] * excited[2].dag()))&IdN15)  # n5 to n2 #type: ignore
-    c_ops.append((np.sqrt(k72) * (ground[2] * isc.dag()))&IdN15)  # n7 to n2 #type: ignore
+    c_ops.append((np.sqrt(k52) * (GROUND[2] * EXCITED[2].dag()))&ID_N15)  # N5 to N2 #type: ignore
+    c_ops.append((np.sqrt(k72) * (GROUND[2] * ISC.dag()))&ID_N15)  # N7 to N2 #type: ignore
 
-    c_ops.append((np.sqrt(k63) * (ground[0] * excited[0].dag()))&IdN15)  # n6 to n3 #type: ignore
-    c_ops.append((np.sqrt(k73) * (ground[0] * isc.dag()))&IdN15)  # n7 to n3 #type: ignore
+    c_ops.append((np.sqrt(k63) * (GROUND[0] * EXCITED[0].dag()))&ID_N15)  # N6 to N3 #type: ignore
+    c_ops.append((np.sqrt(k73) * (GROUND[0] * ISC.dag()))&ID_N15)  # N7 to N3 #type: ignore
 
-    c_ops.append((np.sqrt(k47) * (isc * excited[1].dag()))&IdN15)  # n4 to n7 #type: ignore
-    c_ops.append((np.sqrt(k57) * (isc * excited[2].dag()))&IdN15)  # n5 to n7 #type: ignore
-    c_ops.append((np.sqrt(k67) * (isc * excited[0].dag()))&IdN15)  # n6 to n7 #type: ignore
-    # Add collapse operators for decoherence   
-    c_ops.append((np.sqrt(gamma_gs[1]) * sz_gs)&IdN15)
-    c_ops.append((np.sqrt(gamma_gs[0]/2) * (sm_gs))&IdN15)
-    c_ops.append((np.sqrt(gamma_gs[0]/2) * (sp_gs))&IdN15)
-    c_ops.append((np.sqrt(gamma_es[1]) * sz_es)&IdN15)
-    c_ops.append((np.sqrt(gamma_es[0]/2) * (sm_es))&IdN15)
-    c_ops.append((np.sqrt(gamma_es[0]/2) * (sp_es))&IdN15)
-    c_ops.append(IdNV&(np.sqrt(gamma_n[1]) * sz_n))
-    c_ops.append(IdNV&(np.sqrt(gamma_n[0]/2) * (sm_n)))
-    c_ops.append(IdNV&(np.sqrt(gamma_n[0]/2) * (sp_n)))
+    c_ops.append((np.sqrt(k47) * (ISC * EXCITED[1].dag()))&ID_N15)  # N4 to N7 #type: ignore
+    c_ops.append((np.sqrt(k57) * (ISC * EXCITED[2].dag()))&ID_N15)  # N5 to N7 #type: ignore
+    c_ops.append((np.sqrt(k67) * (ISC * EXCITED[0].dag()))&ID_N15)  # N6 to N7 #type: ignore
+    # Add collapse operators for decohereNCe   
+    c_ops.append((np.sqrt(GAMMA_GS[1]) * SZ_GS)&ID_N15)
+    c_ops.append((np.sqrt(GAMMA_GS[0]/2) * (SM_GS))&ID_N15)
+    c_ops.append((np.sqrt(GAMMA_GS[0]/2) * (SP_GS))&ID_N15)
+    c_ops.append((np.sqrt(GAMMA_ES[1]) * SZ_ES)&ID_N15)
+    c_ops.append((np.sqrt(GAMMA_ES[0]/2) * (SM_ES))&ID_N15)
+    c_ops.append((np.sqrt(GAMMA_ES[0]/2) * (SP_ES))&ID_N15)
+    c_ops.append(ID_NV&(np.sqrt(GAMMA_N[1]) * SZ_N))
+    c_ops.append(ID_NV&(np.sqrt(GAMMA_N[0]/2) * (SM_N)))
+    c_ops.append(ID_NV&(np.sqrt(GAMMA_N[0]/2) * (SP_N)))
 
     return c_ops
 
@@ -356,7 +356,7 @@ def dynamics_mg_hf(
     om_r=None,
     om=None,
     w_p=None,
-    k_index=k_ind,
+    k_index=K_IND,
     ti=0.0,
     mode="Free",
     progress_bar="ON",
@@ -364,21 +364,21 @@ def dynamics_mg_hf(
 ):
     """
     Simulate the dynamics of a quantum system under hyperfine interaction using the Hamiltonian and collapse operators.
-    including optical transition rates index.
-    Where, when using k_index=2 -> K_s[k_index]=[62.7,12.97,80.0,3.45,1.08], and the full K_s list is:
-        K_s=[[66.0,0.0,57.0,1.0,0.7],
+    iNCluding optical transition rates index.
+    Where, when using k_index=2 -> K_S[k_index]=[62.7,12.97,80.0,3.45,1.08], and the full K_S list is:
+        K_S=[[66.0,0.0,57.0,1.0,0.7],
              [77.0,0.0,30.0,3.3,0.0],
              [62.7,12.97,80.0,3.45,1.08],
              [63.2,10.8,60.7,0.8,0.4],
              [67.4,9.9,96.6,4.83,1.055]]
     Parameters:
     - dt (float): Total simulation time.
-    - init_state (qutip.Qobj): Initial quantum state of the system.
-    - om_r (float, optional): Rabi frequency for microwave interactions. Defaults to Om_r.
-    - om (float, optional): Angular frequency of the system. Defaults to omega.
-    - w_p (float, optional): Laser frequency. Defaults to W_p.
-    - k_index(int, optional): Index for the optical transition rates. Defaults to k_ind.
-    - ti (float, optional): Initial time of the simulation. Defaults to 0.0.
+    - init_state (qutip.Qobj): INITial quantum state of the system.
+    - om_r (float, optional): Rabi frequeNCy for microwave interactions. Defaults to OM_R.
+    - om (float, optional): Angular frequeNCy of the system. Defaults to OMEGA.
+    - w_p (float, optional): Laser frequeNCy. Defaults to W_P.
+    - k_index(int, optional): Index for the optical transition rates. Defaults to K_IND.
+    - ti (float, optional): INITial time of the simulation. Defaults to 0.0.
     - mode (str, optional): Simulation mode. Can be "Free", "MW", "Laser", or "Laser-MW". Defaults to "Free".
     - progress_bar (str, optional): Option to display a progress bar. Can be "ON" or "OFF". Defaults to "ON".
     - i (int, optional): Counter for the progress bar. Defaults to 0.
@@ -388,9 +388,9 @@ def dynamics_mg_hf(
     - result (qutip.solver.Result): Result object containing the simulation output.
     """
     # Default values
-    if om_r is None: om_r = Om_r
-    if om is None: om = omega
-    if w_p is None: w_p = W_p
+    if om_r is None: om_r = OM_R
+    if om is None: om = OMEGA_MG
+    if w_p is None: w_p = W_P
 
     # Time resolution based on dt
     t_bins = 1000 if dt <= 5 else 5000
@@ -398,16 +398,16 @@ def dynamics_mg_hf(
     # Define Hamiltonian and collapse operators based on mode
     match mode:
         case "Free":
-            H = H_mg_hf(0.0)
+            Ham = H_mg_hf(0.0)
             c_ops = L_mg_hf(0.0, k_index=k_index)
         case "MW":
-            H = H_mg_hf(om_r)
+            Ham = H_mg_hf(om_r)
             c_ops = L_mg_hf(0.0, k_index=k_index)
         case "Laser":
-            H = H_mg_hf(0.0)
+            Ham = H_mg_hf(0.0)
             c_ops = L_mg_hf(w_p, k_index=k_index)
         case "Laser-MW":
-            H = H_mg_hf(om_r)
+            Ham = H_mg_hf(om_r)
             c_ops = L_mg_hf(w_p, k_index=k_index)
         case _:
             raise ValueError('mode must be one of "Free", "MW", "Laser", or "Laser-MW"')
@@ -421,7 +421,7 @@ def dynamics_mg_hf(
     match progress_bar:
         case "OFF":
             result = qt.mesolve(
-                H,
+                Ham,
                 init_state,
                 np.linspace(ti, tf, t_bins + 1),
                 c_ops,
@@ -431,7 +431,7 @@ def dynamics_mg_hf(
         case "ON":
             print(f"{mode} {int(i + 1)} \n ti | tf \n {int(ti)} | {int(tf)}")
             result = qt.mesolve(
-                H,
+                Ham,
                 init_state,
                 np.linspace(ti, tf, t_bins + 1),
                 c_ops,
@@ -447,76 +447,76 @@ def dynamics_mg_hf(
 ############ Models 2 & 3 No-HF ###############
 ###############################################
 
-# Driving frequency
-omega = D_gs-mu_e*B[2]
+# Driving frequeNCy
+OMEGA = D_GS-MU_E*B[2]
 # Driving phase
-phi = 0.0
+PHI = 0.0
 
 def H_no(b, om_r):
     """
-    Calculates the Hamiltonian for a given magnetic field and Rabi frequency.
+    Calculates the Hamiltonian for a given magnetic field and Rabi frequeNCy.
     
     Parameters:
     b (np.array): Magnetic field vector B0(B_amp,phi_B,theta_B).
-    om_r (float): Rabi frequency.
+    om_r (float): Rabi frequeNCy.
     
     Returns:
     list: A list containing the Hamiltonian Qobj terms.
     """
-    H_0 = [D_gs*sz_gs**2+E_gs*(sx_gs**2-sy_gs**2)+mu_e*np.dot(b,S_gs)+
-           D_es*sz_es**2+E_es*(sx_es**2-sy_es**2)+mu_e*np.dot(b,S_es)]
-    H_int = [[np.sqrt(2)*om_r*(sx_gs), "cos(w*t)*cos(p)"],
-           [np.sqrt(2)*om_r*(sy_gs), "cos(w*t)*sin(p)"],
-           [np.sqrt(2)*om_r*(sx_es), "cos(w*t)*cos(p)"],
-           [np.sqrt(2)*om_r*(sy_es), "cos(w*t)*sin(p)"]]
-    return [*H_0,*H_int]
+    Ham_0 = [D_GS*SZ_GS**2+E_GS*(SX_GS**2-SY_GS**2)+MU_E*np.dot(b,S_GS)+
+           D_ES*SZ_ES**2+E_ES*(SX_ES**2-SY_ES**2)+MU_E*np.dot(b,S_ES)]
+    H_int = [[np.sqrt(2)*om_r*(SX_GS), "cos(w*t)*cos(p)"],
+           [np.sqrt(2)*om_r*(SY_GS), "cos(w*t)*sin(p)"],
+           [np.sqrt(2)*om_r*(SX_ES), "cos(w*t)*cos(p)"],
+           [np.sqrt(2)*om_r*(SY_ES), "cos(w*t)*sin(p)"]]
+    return [*Ham_0,*H_int]
 
-def L_no(w_p,k_index=k_ind, K_s=K_s):
+def L_no(w_p,k_index=K_IND, K_S=K_S):
     """
-    Returns the Lindblad operators of the system, including optical transitions based on the given k_index.
+    Returns the Lindblad operators of the system, iNCluding optical transitions based on the given k_index.
 
     Parameters:
     - w_p (float): Laser pump rate.
-    - k_index (int, optional): Index for the optical transition rates. Defaults to k_ind.
+    - k_index (int, optional): Index for the optical transition rates. Defaults to K_IND.
 
     Returns:
     - c_ops (list): List of Lindblad operators Qobj.
     """
-    k41 = K_s[k_index][0]
-    k52 = K_s[k_index][0]
-    k63 = K_s[k_index][0]
-    k57 = K_s[k_index][2]
-    k67 = K_s[k_index][2]
-    k47 = K_s[k_index][1]
-    k71 = K_s[k_index][3]
-    k72 = K_s[k_index][4]
-    k73 = K_s[k_index][4]
+    k41 = K_S[k_index][0]
+    k52 = K_S[k_index][0]
+    k63 = K_S[k_index][0]
+    k57 = K_S[k_index][2]
+    k67 = K_S[k_index][2]
+    k47 = K_S[k_index][1]
+    k71 = K_S[k_index][3]
+    k72 = K_S[k_index][4]
+    k73 = K_S[k_index][4]
     
     c_ops = []
 
-    c_ops.append(np.sqrt(w_p) * (excited[1] * ground[1].dag()))  # n1 to n4 #type: ignore
-    c_ops.append(np.sqrt(w_p) * (excited[2] * ground[2].dag()))  # n2 to n5 #type: ignore
-    c_ops.append(np.sqrt(w_p) * (excited[0] * ground[0].dag())) # n3 to n6 #type: ignore
+    c_ops.append(np.sqrt(w_p) * (EXCITED[1] * GROUND[1].dag()))  # N1 to N4 #type: ignore
+    c_ops.append(np.sqrt(w_p) * (EXCITED[2] * GROUND[2].dag()))  # N2 to N5 #type: ignore
+    c_ops.append(np.sqrt(w_p) * (EXCITED[0] * GROUND[0].dag())) # N3 to N6 #type: ignore
 
-    c_ops.append(np.sqrt(k41) * (ground[1] * excited[1].dag()))  # n4 to n1 #type: ignore
-    c_ops.append(np.sqrt(k71) * (ground[1] * isc.dag()))  # n7 to n1 #type: ignore
+    c_ops.append(np.sqrt(k41) * (GROUND[1] * EXCITED[1].dag()))  # N4 to N1 #type: ignore
+    c_ops.append(np.sqrt(k71) * (GROUND[1] * ISC.dag()))  # N7 to N1 #type: ignore
 
-    c_ops.append(np.sqrt(k52) * (ground[2] * excited[2].dag()))  # n5 to n2 #type: ignore
-    c_ops.append(np.sqrt(k72) * (ground[2] * isc.dag()))  # n7 to n2 #type: ignore
+    c_ops.append(np.sqrt(k52) * (GROUND[2] * EXCITED[2].dag()))  # N5 to N2 #type: ignore
+    c_ops.append(np.sqrt(k72) * (GROUND[2] * ISC.dag()))  # N7 to N2 #type: ignore
 
-    c_ops.append(np.sqrt(k63) * (ground[0] * excited[0].dag()))  # n6 to n3 #type: ignore
-    c_ops.append(np.sqrt(k73) * (ground[0] * isc.dag()))  # n7 to n3 #type: ignore
+    c_ops.append(np.sqrt(k63) * (GROUND[0] * EXCITED[0].dag()))  # N6 to N3 #type: ignore
+    c_ops.append(np.sqrt(k73) * (GROUND[0] * ISC.dag()))  # N7 to N3 #type: ignore
 
-    c_ops.append(np.sqrt(k47) * (isc * excited[1].dag()))  # n4 to n7 #type: ignore
-    c_ops.append(np.sqrt(k57) * (isc * excited[2].dag()))  # n5 to n7 #type: ignore
-    c_ops.append(np.sqrt(k67) * (isc * excited[0].dag()))  # n6 to n7 #type: ignore
-    # Add collapse operators for decoherence
-    c_ops.append(np.sqrt(gamma_gs[1]) * sz_gs)
-    c_ops.append(np.sqrt(gamma_gs[0]/2) * (sm_gs))
-    c_ops.append(np.sqrt(gamma_gs[0]/2) * (sp_gs))
-    c_ops.append(np.sqrt(gamma_es[1]) * sz_es)
-    c_ops.append(np.sqrt(gamma_es[0]/2) * (sm_es))
-    c_ops.append(np.sqrt(gamma_es[0]/2) * (sp_es))
+    c_ops.append(np.sqrt(k47) * (ISC * EXCITED[1].dag()))  # N4 to N7 #type: ignore
+    c_ops.append(np.sqrt(k57) * (ISC * EXCITED[2].dag()))  # N5 to N7 #type: ignore
+    c_ops.append(np.sqrt(k67) * (ISC * EXCITED[0].dag()))  # N6 to N7 #type: ignore
+    # Add collapse operators for decohereNCe
+    c_ops.append(np.sqrt(GAMMA_GS[1]) * SZ_GS)
+    c_ops.append(np.sqrt(GAMMA_GS[0]/2) * (SM_GS))
+    c_ops.append(np.sqrt(GAMMA_GS[0]/2) * (SP_GS))
+    c_ops.append(np.sqrt(GAMMA_ES[1]) * SZ_ES)
+    c_ops.append(np.sqrt(GAMMA_ES[0]/2) * (SM_ES))
+    c_ops.append(np.sqrt(GAMMA_ES[0]/2) * (SP_ES))
     return c_ops
 
 
@@ -528,29 +528,29 @@ def dynamics_no(
     p=None,
     om_r=None,
     w_p=None,
-    k_index=k_ind,
+    k_index=K_IND,
     ti=0.0,    
     mode="Free",
     progress_bar="ON",
     i=0,
 ):
     """
-    Perform dynamics simulation based on the given parameters, including optical transition rates index.
-    Where, when using k_index=2 -> K_s[k_index]=[62.7,12.97,80.0,3.45,1.08], and the full K_s list is:
-        K_s=[[66.0,0.0,57.0,1.0,0.7],
+    Perform dynamics simulation based on the given parameters, iNCluding optical transition rates index.
+    Where, when using k_index=2 -> K_S[k_index]=[62.7,12.97,80.0,3.45,1.08], and the full K_S list is:
+        K_S=[[66.0,0.0,57.0,1.0,0.7],
              [77.0,0.0,30.0,3.3,0.0],
              [62.7,12.97,80.0,3.45,1.08],
              [63.2,10.8,60.7,0.8,0.4],
              [67.4,9.9,96.6,4.83,1.055]]
     Parameters:
     - dt (float): Time step for the calculations.
-    - init_state: Initial state for the simulation.
+    - init_state: INITial state for the simulation.
     - b (np.array, optional): Magnetic field vector. Defaults to B0(B_amp,phi_B,theta_B).
-    - om (float, optional): Angular frequency of the system. Defaults to omega.
-    - om_r (float, optional): Angular frequency for MW-ON evolution. Defaults to Om_r.
-    - w_p (float, optional): Frequency for laser-ON evolution. Defaults to W_p.
-    - k_index=k_index (int, optional): Index for the optical transition rates. Defaults to k_ind.
-    - ti (float, optional): Initial time for the simulation. Defaults to 0.0.
+    - om (float, optional): Angular frequeNCy of the system. Defaults to OMEGA.
+    - om_r (float, optional): Angular frequeNCy for MW-ON evolution. Defaults to OM_R.
+    - w_p (float, optional): FrequeNCy for laser-ON evolution. Defaults to W_P.
+    - k_index=k_index (int, optional): Index for the optical transition rates. Defaults to K_IND.
+    - ti (float, optional): INITial time for the simulation. Defaults to 0.0.
     - mode (str, optional): Mode of the simulation. Can be "Free", "MW", "Laser", or "Laser-MW". Defaults to "Free".
     - progress_bar (str, optional): Progress bar option. Can be "ON" or "OFF". Defaults to "ON".
     - i (int, optional): Iteration number. Defaults to 0.
@@ -561,10 +561,10 @@ def dynamics_no(
     """
     # Default values
     if b is None: b = B
-    if om is None: om = omega
-    if p is None: p = phi
-    if om_r is None: om_r = Om_r
-    if w_p is None: w_p = W_p
+    if om is None: om = OMEGA
+    if p is None: p = PHI
+    if om_r is None: om_r = OM_R
+    if w_p is None: w_p = W_P
 
     # Arguments for the Hamiltonian
     args = {"w": om, "p": p}
@@ -578,16 +578,16 @@ def dynamics_no(
     match mode:
         case "Free":
             c_ops = L_no(0.0, k_index=k_index)
-            H = H_no(b, 0.0)
+            Ham = H_no(b, 0.0)
         case "MW":
             c_ops = L_no(0.0, k_index=k_index)
-            H = H_no(b, om_r)
+            Ham = H_no(b, om_r)
         case "Laser":
             c_ops = L_no(w_p, k_index=k_index)
-            H = H_no(b, 0.0)
+            Ham = H_no(b, 0.0)
         case "Laser-MW":
             c_ops = L_no(w_p, k_index=k_index)
-            H = H_no(b, om_r)
+            Ham = H_no(b, om_r)
         case _:
             raise ValueError('mode must be one of "Free", "MW", "Laser", or "Laser-MW"')
 
@@ -595,7 +595,7 @@ def dynamics_no(
     match progress_bar:
         case "OFF":
             result = qt.mesolve(
-                H,
+                Ham,
                 init_state,
                 np.linspace(ti, tf, t_bins + 1),
                 c_ops,
@@ -605,7 +605,7 @@ def dynamics_no(
         case "ON":
             print(f"{mode} {int(i + 1)} \n ti    |    tf \n {ti:.2f} | {tf:.2f}")
             result = qt.mesolve(
-                H,
+                Ham,
                 init_state,
                 np.linspace(ti, tf, t_bins + 1),
                 c_ops,
@@ -623,81 +623,81 @@ def dynamics_no(
 
 def H_dua_hf(b, om_r,phi_h):
     """
-    Calculate the Hamiltonian for a given magnetic field and resonant frequency, including hyperfine interactions.
+    Calculate the Hamiltonian for a given magnetic field and resonant frequeNCy, iNCluding hyperfine interactions.
     
     Parameters:
     b (numpy.ndarray): Magnetic field vector [bx, by, bz].
-    om_r: Resonant frequency.
+    om_r: Resonant frequeNCy.
     
     Returns:
     list: List of Hamiltonian terms.
     """
-    H_0 = [((D_gs*sz_gs**2 + E_gs*(sx_gs**2-sy_gs**2) + mu_e*np.dot(b, S_gs))&IdN15)+
-           ((D_es*sz_es**2 + E_es*(sx_es**2-sy_es**2) + mu_e*np.dot(b, S_es))&IdN15)+
-           A_par[0]*(sz_gs&sz_n) + A_perp[0]/4*((sp_gs&sm_n)+(sm_gs&sp_n))+
-           A_perp_prime[0]/4*((sp_gs&sp_n)*np.exp(-2j*phi_h) + (sm_gs&sm_n)*np.exp(2j*phi_h))+
-           A_ani[0]/2*((sp_gs&sz_n) + (sz_gs&sp_n)*np.exp(-1j*phi_h) + (sm_gs&sz_n) + (sz_gs&sm_n)*np.exp(1j*phi_h))+
-           A_par[1]*(sz_es&sz_n) + A_perp[1]/4*((sp_es&sm_n)+(sm_es&sp_n))+
-           A_perp_prime[1]/4*((sp_es&sp_n)*np.exp(-2j*phi_h) + (sm_es&sm_n)*np.exp(2j*phi_h))+
-           A_ani[1]/2*((sp_es&sz_n) + (sz_es&sp_n)*np.exp(-1j*phi_h) + (sm_es&sz_n) + (sz_es&sm_n)*np.exp(1j*phi_h))]
-    H_n = [IdNV&mu_n*np.dot(b, S_n)]
-    H_int = [[(np.sqrt(2)*om_r*sx_gs)&IdN15, "cos(w*t)*cos(p)"],
-             [(np.sqrt(2)*om_r*sy_gs)&IdN15, "cos(w*t)*sin(p)"],
-             [(np.sqrt(2)*om_r*sx_es)&IdN15, "cos(w*t)*cos(p)"],
-             [(np.sqrt(2)*om_r*sy_es)&IdN15, "cos(w*t)*sin(p)"],
-             [IdNV&(2*om_r/mu_e*mu_n*sx_n), "cos(w*t)*cos(p)"],
-             [IdNV&(2*om_r/mu_e*mu_n*sy_n), "cos(w*t)*sin(p)"]]
-    return [*H_0, *H_n, *H_int]
+    Ham_0 = [((D_GS*SZ_GS**2 + E_GS*(SX_GS**2-SY_GS**2) + MU_E*np.dot(b, S_GS))&ID_N15)+
+           ((D_ES*SZ_ES**2 + E_ES*(SX_ES**2-SY_ES**2) + MU_E*np.dot(b, S_ES))&ID_N15)+
+           A_PAR[0]*(SZ_GS&SZ_N) + A_PERP[0]/4*((SP_GS&SM_N)+(SM_GS&SP_N))+
+           A_PERP_PRIME[0]/4*((SP_GS&SP_N)*np.exp(-2j*phi_h) + (SM_GS&SM_N)*np.exp(2j*phi_h))+
+           A_ANI[0]/2*((SP_GS&SZ_N) + (SZ_GS&SP_N)*np.exp(-1j*phi_h) + (SM_GS&SZ_N) + (SZ_GS&SM_N)*np.exp(1j*phi_h))+
+           A_PAR[1]*(SZ_ES&SZ_N) + A_PERP[1]/4*((SP_ES&SM_N)+(SM_ES&SP_N))+
+           A_PERP_PRIME[1]/4*((SP_ES&SP_N)*np.exp(-2j*phi_h) + (SM_ES&SM_N)*np.exp(2j*phi_h))+
+           A_ANI[1]/2*((SP_ES&SZ_N) + (SZ_ES&SP_N)*np.exp(-1j*phi_h) + (SM_ES&SZ_N) + (SZ_ES&SM_N)*np.exp(1j*phi_h))]
+    H_n = [ID_NV&MU_N*np.dot(b, S_N)]
+    H_int = [[(np.sqrt(2)*om_r*SX_GS)&ID_N15, "cos(w*t)*cos(p)"],
+             [(np.sqrt(2)*om_r*SY_GS)&ID_N15, "cos(w*t)*sin(p)"],
+             [(np.sqrt(2)*om_r*SX_ES)&ID_N15, "cos(w*t)*cos(p)"],
+             [(np.sqrt(2)*om_r*SY_ES)&ID_N15, "cos(w*t)*sin(p)"],
+             [ID_NV&(2*om_r/MU_E*MU_N*SX_N), "cos(w*t)*cos(p)"],
+             [ID_NV&(2*om_r/MU_E*MU_N*SY_N), "cos(w*t)*sin(p)"]]
+    return [*Ham_0, *H_n, *H_int]
 
-def L_dua_hf(w_p,k_index=k_ind, K_s=K_s):
+def L_dua_hf(w_p,k_index=K_IND, K_S=K_S):
     """
-    Returns the Lindblad operators of the system, including optical transitions based on the given k_index.
+    Returns the Lindblad operators of the system, iNCluding optical transitions based on the given k_index.
 
     Parameters:
     - w_p (float): Laser pump rate.
-    - k_index (int, optional): Index for the optical transition rates. Defaults to k_ind.
+    - k_index (int, optional): Index for the optical transition rates. Defaults to K_IND.
 
     Returns:
     - c_ops (list): List of Lindblad operators.
     """
-    k41 = K_s[k_index][0]
-    k52 = K_s[k_index][0]
-    k63 = K_s[k_index][0]
-    k57 = K_s[k_index][2]
-    k67 = K_s[k_index][2]
-    k47 = K_s[k_index][1]
-    k71 = K_s[k_index][3]
-    k72 = K_s[k_index][4]
-    k73 = K_s[k_index][4]
+    k41 = K_S[k_index][0]
+    k52 = K_S[k_index][0]
+    k63 = K_S[k_index][0]
+    k57 = K_S[k_index][2]
+    k67 = K_S[k_index][2]
+    k47 = K_S[k_index][1]
+    k71 = K_S[k_index][3]
+    k72 = K_S[k_index][4]
+    k73 = K_S[k_index][4]
     
     c_ops = []
 
-    c_ops.append((np.sqrt(w_p) * (excited[1] * ground[1].dag()))&IdN15)  # n1 to n4 #type: ignore
-    c_ops.append((np.sqrt(w_p) * (excited[2] * ground[2].dag()))&IdN15)  # n2 to n5 #type: ignore
-    c_ops.append((np.sqrt(w_p) * (excited[0] * ground[0].dag()))&IdN15) # n3 to n6 #type: ignore
+    c_ops.append((np.sqrt(w_p) * (EXCITED[1] * GROUND[1].dag()))&ID_N15)  # N1 to N4 #type: ignore
+    c_ops.append((np.sqrt(w_p) * (EXCITED[2] * GROUND[2].dag()))&ID_N15)  # N2 to N5 #type: ignore
+    c_ops.append((np.sqrt(w_p) * (EXCITED[0] * GROUND[0].dag()))&ID_N15) # N3 to N6 #type: ignore
 
-    c_ops.append((np.sqrt(k41) * (ground[1] * excited[1].dag()))&IdN15)  # n4 to n1 #type: ignore
-    c_ops.append((np.sqrt(k71) * (ground[1] * isc.dag()))&IdN15)  # n7 to n1 #type: ignore
+    c_ops.append((np.sqrt(k41) * (GROUND[1] * EXCITED[1].dag()))&ID_N15)  # N4 to N1 #type: ignore
+    c_ops.append((np.sqrt(k71) * (GROUND[1] * ISC.dag()))&ID_N15)  # N7 to N1 #type: ignore
 
-    c_ops.append((np.sqrt(k52) * (ground[2] * excited[2].dag()))&IdN15)  # n5 to n2 #type: ignore
-    c_ops.append((np.sqrt(k72) * (ground[2] * isc.dag()))&IdN15)  # n7 to n2 #type: ignore
+    c_ops.append((np.sqrt(k52) * (GROUND[2] * EXCITED[2].dag()))&ID_N15)  # N5 to N2 #type: ignore
+    c_ops.append((np.sqrt(k72) * (GROUND[2] * ISC.dag()))&ID_N15)  # N7 to N2 #type: ignore
 
-    c_ops.append((np.sqrt(k63) * (ground[0] * excited[0].dag()))&IdN15)  # n6 to n3 #type: ignore
-    c_ops.append((np.sqrt(k73) * (ground[0] * isc.dag()))&IdN15)  # n7 to n3 #type: ignore
+    c_ops.append((np.sqrt(k63) * (GROUND[0] * EXCITED[0].dag()))&ID_N15)  # N6 to N3 #type: ignore
+    c_ops.append((np.sqrt(k73) * (GROUND[0] * ISC.dag()))&ID_N15)  # N7 to N3 #type: ignore
 
-    c_ops.append((np.sqrt(k47) * (isc * excited[1].dag()))&IdN15)  # n4 to n7 #type: ignore
-    c_ops.append((np.sqrt(k57) * (isc * excited[2].dag()))&IdN15)  # n5 to n7 #type: ignore
-    c_ops.append((np.sqrt(k67) * (isc * excited[0].dag()))&IdN15)  # n6 to n7 #type: ignore
-    # Add collapse operators for decoherence   
-    c_ops.append((np.sqrt(gamma_gs[1]) * sz_gs)&IdN15)
-    c_ops.append((np.sqrt(gamma_gs[0]/2) * (sm_gs))&IdN15)
-    c_ops.append((np.sqrt(gamma_gs[0]/2) * (sp_gs))&IdN15)
-    c_ops.append((np.sqrt(gamma_es[1]) * sz_es)&IdN15)
-    c_ops.append((np.sqrt(gamma_es[0]/2) * (sm_es))&IdN15)
-    c_ops.append((np.sqrt(gamma_es[0]/2) * (sp_es))&IdN15)
-    c_ops.append(IdNV&(np.sqrt(gamma_n[1]) * sz_n))
-    c_ops.append(IdNV&(np.sqrt(gamma_n[0]/2) * (sm_n)))
-    c_ops.append(IdNV&(np.sqrt(gamma_n[0]/2) * (sp_n)))
+    c_ops.append((np.sqrt(k47) * (ISC * EXCITED[1].dag()))&ID_N15)  # N4 to N7 #type: ignore
+    c_ops.append((np.sqrt(k57) * (ISC * EXCITED[2].dag()))&ID_N15)  # N5 to N7 #type: ignore
+    c_ops.append((np.sqrt(k67) * (ISC * EXCITED[0].dag()))&ID_N15)  # N6 to N7 #type: ignore
+    # Add collapse operators for decohereNCe   
+    c_ops.append((np.sqrt(GAMMA_GS[1]) * SZ_GS)&ID_N15)
+    c_ops.append((np.sqrt(GAMMA_GS[0]/2) * (SM_GS))&ID_N15)
+    c_ops.append((np.sqrt(GAMMA_GS[0]/2) * (SP_GS))&ID_N15)
+    c_ops.append((np.sqrt(GAMMA_ES[1]) * SZ_ES)&ID_N15)
+    c_ops.append((np.sqrt(GAMMA_ES[0]/2) * (SM_ES))&ID_N15)
+    c_ops.append((np.sqrt(GAMMA_ES[0]/2) * (SP_ES))&ID_N15)
+    c_ops.append(ID_NV&(np.sqrt(GAMMA_N[1]) * SZ_N))
+    c_ops.append(ID_NV&(np.sqrt(GAMMA_N[0]/2) * (SM_N)))
+    c_ops.append(ID_NV&(np.sqrt(GAMMA_N[0]/2) * (SP_N)))
     return c_ops
 
 def dynamics_dua_hf(
@@ -708,7 +708,7 @@ def dynamics_dua_hf(
     om=None,
     p=None,
     w_p=None,
-    k_index=k_ind,
+    k_index=K_IND,
     ti=0.0,
     mode="Free",
     progress_bar="ON",
@@ -716,23 +716,23 @@ def dynamics_dua_hf(
 ):
     """
     Simulate the dynamics of a quantum system under hyperfine interaction using the Hamiltonian and collapse operators.
-    including optical transition rates index.
-    Where, when using k_index=2 -> K_s[k_index]=[62.7,12.97,80.0,3.45,1.08], and the full K_s list is:
-        K_s=[[66.0,0.0,57.0,1.0,0.7],
+    iNCluding optical transition rates index.
+    Where, when using k_index=2 -> K_S[k_index]=[62.7,12.97,80.0,3.45,1.08], and the full K_S list is:
+        K_S=[[66.0,0.0,57.0,1.0,0.7],
              [77.0,0.0,30.0,3.3,0.0],
              [62.7,12.97,80.0,3.45,1.08],
              [63.2,10.8,60.7,0.8,0.4],
              [67.4,9.9,96.6,4.83,1.055]]
     Parameters:
     - dt (float): Total simulation time.
-    - init_state (qt.Qobj): Initial quantum state of the system.
+    - init_state (qt.Qobj): INITial quantum state of the system.
     - b (np.array, optional): Magnetic field vector. Defaults to B0(B_amp,phi_B,theta_B).
-    - om_r (float, optional): Rabi frequency for microwave interactions. Defaults to Om_r.
-    - om (float, optional): Angular frequency of the system. Defaults to omega.
+    - om_r (float, optional): Rabi frequeNCy for microwave interactions. Defaults to OM_R.
+    - om (float, optional): Angular frequeNCy of the system. Defaults to OMEGA.
     - p (float, optional): Microwave phase. Defaults to 0.0.
-    - w_p (float, optional): Laser frequency. Defaults to W_p.
-    - k_index(int, optional): Index for the optical transition rates. Defaults to k_ind.
-    - ti (float, optional): Initial time of the simulation. Defaults to 0.0.
+    - w_p (float, optional): Laser frequeNCy. Defaults to W_P.
+    - k_index(int, optional): Index for the optical transition rates. Defaults to K_IND.
+    - ti (float, optional): INITial time of the simulation. Defaults to 0.0.
     - mode (str, optional): Simulation mode. Can be "Free", "MW", "Laser", or "Laser-MW". Defaults to "Free".
     - progress_bar (str, optional): Option to display a progress bar. Can be "ON" or "OFF". Defaults to "ON".
     - i (int, optional): Counter for the progress bar. Defaults to 0.
@@ -743,10 +743,10 @@ def dynamics_dua_hf(
     """
     # Default values
     if b is None: b = B
-    if om_r is None: om_r = Om_r
-    if om is None: om = omega
-    if p is None: p = phi
-    if w_p is None: w_p = W_p
+    if om_r is None: om_r = OM_R
+    if om is None: om = OMEGA
+    if p is None: p = PHI
+    if w_p is None: w_p = W_P
     
     # Arguments for the Hamiltonian
     args = {"w": om, "p": p}
@@ -758,16 +758,16 @@ def dynamics_dua_hf(
     # Define Hamiltonian and collapse operators based on mode
     match mode:
         case "Free":
-            H = H_dua_hf(b, 0.0, phi_H)
+            Ham = H_dua_hf(b, 0.0, PHI_H)
             c_ops = L_dua_hf(0.0, k_index=k_index)
         case "MW":
-            H = H_dua_hf(b, om_r, phi_H)
+            Ham = H_dua_hf(b, om_r, PHI_H)
             c_ops = L_dua_hf(0.0, k_index=k_index)
         case "Laser":
-            H = H_dua_hf(b, 0.0, phi_H)
+            Ham = H_dua_hf(b, 0.0, PHI_H)
             c_ops = L_dua_hf(w_p, k_index=k_index)
         case "Laser-MW":
-            H = H_dua_hf(b, om_r, phi_H)
+            Ham = H_dua_hf(b, om_r, PHI_H)
             c_ops = L_dua_hf(w_p, k_index=k_index)
         case _:
             raise ValueError('mode must be one of "Free", "MW", "Laser", or "Laser-MW"')
@@ -775,7 +775,7 @@ def dynamics_dua_hf(
     match progress_bar:
         case "OFF":
             result = qt.mesolve(
-                H,
+                Ham,
                 init_state,
                 np.linspace(ti, tf, t_bins + 1),
                 c_ops,
@@ -785,7 +785,7 @@ def dynamics_dua_hf(
         case "ON":
             print(f"{mode} {int(i + 1)} \n ti    |    tf \n {ti:.2f} | {tf:.2f}")
             result = qt.mesolve(
-                H,
+                Ham,
                 init_state,
                 np.linspace(ti, tf, t_bins + 1),
                 c_ops,
@@ -803,78 +803,78 @@ def dynamics_dua_hf(
 
 def H_doh_hf(b, om_r):
     """
-    Calculate the Hamiltonian for a given magnetic field and resonant frequency.
+    Calculate the Hamiltonian for a given magnetic field and resonant frequeNCy.
     
     Parameters:
     b (numpy.ndarray): Magnetic field vector [bx,by,bz].
-    om_r: Resonant frequency.
+    om_r: Resonant frequeNCy.
     
     Returns:
     list: List of Hamiltonian terms.
     """
     
-    H_0 = [((D_gs*sz_gs**2+E_gs*(sx_gs**2-sy_gs**2)+mu_e*np.dot(b,S_gs))&IdN15)+
-           ((D_es*sz_es**2+E_es*(sx_es**2-sy_es**2)+mu_e*np.dot(b,S_es))&IdN15)+
-           a_gs[0]*(sz_gs&sz_n) + a_gs[1]*((sx_gs&sx_n) + (sy_gs&sy_n))+
-           a_es[0]*(sz_es&sz_n) + a_es[1]*((sx_es&sx_n) + (sy_es&sy_n))]
-    H_n = [IdNV&(mu_n*np.dot(b,S_n))]
-    H_int=[[(np.sqrt(2)*om_r*sx_gs)&IdN15, "cos(w*t)*cos(p)"],
-           [(np.sqrt(2)*om_r*sy_gs)&IdN15, "cos(w*t)*sin(p)"],
-           [(np.sqrt(2)*om_r*sx_es)&IdN15, "cos(w*t)*cos(p)"],
-           [(np.sqrt(2)*om_r*sy_es)&IdN15, "cos(w*t)*sin(p)"],
-           [IdNV&(2*om_r/mu_e*mu_n*sx_n), "cos(w*t)*cos(p)"],
-           [IdNV&(2*om_r/mu_e*mu_n*sy_n), "cos(w*t)*sin(p)"]]
-    return [*H_0,*H_n,*H_int] 
+    Ham_0 = [((D_GS*SZ_GS**2+E_GS*(SX_GS**2-SY_GS**2)+MU_E*np.dot(b,S_GS))&ID_N15)+
+           ((D_ES*SZ_ES**2+E_ES*(SX_ES**2-SY_ES**2)+MU_E*np.dot(b,S_ES))&ID_N15)+
+           A_GS[0]*(SZ_GS&SZ_N) + A_GS[1]*((SX_GS&SX_N) + (SY_GS&SY_N))+
+           A_ES[0]*(SZ_ES&SZ_N) + A_ES[1]*((SX_ES&SX_N) + (SY_ES&SY_N))]
+    H_n = [ID_NV&(MU_N*np.dot(b,S_N))]
+    H_int=[[(np.sqrt(2)*om_r*SX_GS)&ID_N15, "cos(w*t)*cos(p)"],
+           [(np.sqrt(2)*om_r*SY_GS)&ID_N15, "cos(w*t)*sin(p)"],
+           [(np.sqrt(2)*om_r*SX_ES)&ID_N15, "cos(w*t)*cos(p)"],
+           [(np.sqrt(2)*om_r*SY_ES)&ID_N15, "cos(w*t)*sin(p)"],
+           [ID_NV&(2*om_r/MU_E*MU_N*SX_N), "cos(w*t)*cos(p)"],
+           [ID_NV&(2*om_r/MU_E*MU_N*SY_N), "cos(w*t)*sin(p)"]]
+    return [*Ham_0,*H_n,*H_int] 
 
-def L_doh_hf(w_p,k_index=k_ind, K_s=K_s):
+def L_doh_hf(w_p,k_index=K_IND, K_S=K_S):
     """
-    Returns the Lindblad operators of the system, including optical transitions based on the given k_index.
+    Returns the Lindblad operators of the system, iNCluding optical transitions based on the given k_index.
 
     Parameters:
     - w_p (float): Laser pump rate.
-    - k_index (int, optional): Index for the optical transition rates. Defaults to k_ind.
+    - k_index (int, optional): Index for the optical transition rates. Defaults to K_IND.
 
     Returns:
     - c_ops (list): List of Lindblad operators.
     """
-    k41 = K_s[k_index][0]
-    k52 = K_s[k_index][0]
-    k63 = K_s[k_index][0]
-    k57 = K_s[k_index][2]
-    k67 = K_s[k_index][2]
-    k47 = K_s[k_index][1]
-    k71 = K_s[k_index][3]
-    k72 = K_s[k_index][4]
-    k73 = K_s[k_index][4]
+    k41 = K_S[k_index][0]
+    k52 = K_S[k_index][0]
+    k63 = K_S[k_index][0]
+    k57 = K_S[k_index][2]
+    k67 = K_S[k_index][2]
+    k47 = K_S[k_index][1]
+    k71 = K_S[k_index][3]
+    k72 = K_S[k_index][4]
+    k73 = K_S[k_index][4]
     
     c_ops = []
 
-    c_ops.append((np.sqrt(w_p) * (excited[1] * ground[1].dag()))&IdN15)  # n1 to n4 #type: ignore
-    c_ops.append((np.sqrt(w_p) * (excited[2] * ground[2].dag()))&IdN15)  # n2 to n5 #type: ignore
-    c_ops.append((np.sqrt(w_p) * (excited[0] * ground[0].dag()))&IdN15) # n3 to n6 #type: ignore
+    c_ops.append((np.sqrt(w_p) * (EXCITED[1] * GROUND[1].dag()))&ID_N15)  # N1 to N4 #type: ignore
+    c_ops.append((np.sqrt(w_p) * (EXCITED[2] * GROUND[2].dag()))&ID_N15)  # N2 to N5 #type: ignore
+    c_ops.append((np.sqrt(w_p) * (EXCITED[0] * GROUND[0].dag()))&ID_N15) # N3 to N6 #type: ignore
 
-    c_ops.append((np.sqrt(k41) * (ground[1] * excited[1].dag()))&IdN15)  # n4 to n1 #type: ignore
-    c_ops.append((np.sqrt(k71) * (ground[1] * isc.dag()))&IdN15)  # n7 to n1 #type: ignore
+    c_ops.append((np.sqrt(k41) * (GROUND[1] * EXCITED[1].dag()))&ID_N15)  # N4 to N1 #type: ignore
+    c_ops.append((np.sqrt(k71) * (GROUND[1] * ISC.dag()))&ID_N15)  # N7 to N1 #type: ignore
 
-    c_ops.append((np.sqrt(k52) * (ground[2] * excited[2].dag()))&IdN15)  # n5 to n2 #type: ignore
-    c_ops.append((np.sqrt(k72) * (ground[2] * isc.dag()))&IdN15)  # n7 to n2 #type: ignore
+    c_ops.append((np.sqrt(k52) * (GROUND[2] * EXCITED[2].dag()))&ID_N15)  # N5 to N2 #type: ignore
+    c_ops.append((np.sqrt(k72) * (GROUND[2] * ISC.dag()))&ID_N15)  # N7 to N2 #type: ignore
 
-    c_ops.append((np.sqrt(k63) * (ground[0] * excited[0].dag()))&IdN15)  # n6 to n3 #type: ignore
-    c_ops.append((np.sqrt(k73) * (ground[0] * isc.dag()))&IdN15)  # n7 to n3 #type: ignore
+    c_ops.append((np.sqrt(k63) * (GROUND[0] * EXCITED[0].dag()))&ID_N15)  # N6 to N3 #type: ignore
+    c_ops.append((np.sqrt(k73) * (GROUND[0] * ISC.dag()))&ID_N15)  # N7 to N3 #type: ignore
 
-    c_ops.append((np.sqrt(k47) * (isc * excited[1].dag()))&IdN15)  # n4 to n7 #type: ignore
-    c_ops.append((np.sqrt(k57) * (isc * excited[2].dag()))&IdN15)  # n5 to n7 #type: ignore
-    c_ops.append((np.sqrt(k67) * (isc * excited[0].dag()))&IdN15)  # n6 to n7 #type: ignore
-    # Collapse operators for decoherence   
-    c_ops.append((np.sqrt(gamma_gs[1]) * sz_gs)&IdN15)
-    c_ops.append((np.sqrt(gamma_gs[0]/2) * (sm_gs))&IdN15)
-    c_ops.append((np.sqrt(gamma_gs[0]/2) * (sp_gs))&IdN15)
-    c_ops.append((np.sqrt(gamma_es[1]) * sz_es)&IdN15)
-    c_ops.append((np.sqrt(gamma_es[0]/2) * (sm_es))&IdN15)
-    c_ops.append((np.sqrt(gamma_es[0]/2) * (sp_es))&IdN15)
-    c_ops.append(IdNV&(np.sqrt(gamma_n[1]) * sz_n))
-    c_ops.append(IdNV&(np.sqrt(gamma_n[0]/2) * (sm_n)))
-    c_ops.append(IdNV&(np.sqrt(gamma_n[0]/2) * (sp_n)))
+    c_ops.append((np.sqrt(k47) * (ISC * EXCITED[1].dag()))&ID_N15)  # N4 to N7 #type: ignore
+    c_ops.append((np.sqrt(k57) * (ISC * EXCITED[2].dag()))&ID_N15)  # N5 to N7 #type: ignore
+    c_ops.append((np.sqrt(k67) * (ISC * EXCITED[0].dag()))&ID_N15)  # N6 to N7 #type: ignore
+    # Collapse operators for decohereNCe   
+    c_ops.append((np.sqrt(GAMMA_GS[1]) * SZ_GS)&ID_N15)
+    c_ops.append((np.sqrt(GAMMA_GS[0]/2) * (SM_GS))&ID_N15)
+    c_ops.append((np.sqrt(GAMMA_GS[0]/2) * (SP_GS))&ID_N15)
+    c_ops.append((np.sqrt(GAMMA_ES[1]) * SZ_ES)&ID_N15)
+    c_ops.append((np.sqrt(GAMMA_ES[0]/2) * (SM_ES))&ID_N15)
+    c_ops.append((np.sqrt(GAMMA_ES[0]/2) * (SP_ES))&ID_N15)
+    c_ops.append(ID_NV&(np.sqrt(GAMMA_N[1]) * SZ_N))
+    c_ops.append(ID_NV&(np.sqrt(GAMMA_N[0]/2) * (SM_N)))
+    c_ops.append(ID_NV&(np.sqrt(GAMMA_N[0]/2) * (SP_N)))
     return c_ops
 
 def dynamics_doh_hf(
@@ -885,7 +885,7 @@ def dynamics_doh_hf(
     om=None,
     p=None,
     w_p=None,
-    k_index=k_ind,
+    k_index=K_IND,
     ti=0.0,
     mode="Free",
     progress_bar="ON",
@@ -893,23 +893,23 @@ def dynamics_doh_hf(
 ):
     """
     Simulate the dynamics of a quantum system under hyperfine interaction using the Hamiltonian and collapse operators.
-    including optical transition rates index.
-    Where, when using k_index=2 -> K_s[k_index]=[62.7,12.97,80.0,3.45,1.08], and the full K_s list is:
-        K_s=[[66.0,0.0,57.0,1.0,0.7],
+    iNCluding optical transition rates index.
+    Where, when using k_index=2 -> K_S[k_index]=[62.7,12.97,80.0,3.45,1.08], and the full K_S list is:
+        K_S=[[66.0,0.0,57.0,1.0,0.7],
              [77.0,0.0,30.0,3.3,0.0],
              [62.7,12.97,80.0,3.45,1.08],
              [63.2,10.8,60.7,0.8,0.4],
              [67.4,9.9,96.6,4.83,1.055]]
     Parameters:
     - dt (float): Total simulation time.
-    - init_state (qt.Qobj): Initial quantum state of the system.
+    - init_state (qt.Qobj): INITial quantum state of the system.
     - b (np.array, optional): Magnetic field vector. Defaults to B0(B_amp,phi_B,theta_B).
-    - om_r (float, optional): Rabi frequency for microwave interactions. Defaults to Om_r.
-    - om (float, optional): Angular frequency of the system. Defaults to omega.
+    - om_r (float, optional): Rabi frequeNCy for microwave interactions. Defaults to OM_R.
+    - om (float, optional): Angular frequeNCy of the system. Defaults to OMEGA.
     - p (float, optional): Microwave phase. Defaults to 0.0.
-    - w_p (float, optional): Laser frequency. Defaults to W_p.
-    - k_index(int, optional): Index for the optical transition rates. Defaults to k_ind.
-    - ti (float, optional): Initial time of the simulation. Defaults to 0.0.
+    - w_p (float, optional): Laser frequeNCy. Defaults to W_P.
+    - k_index(int, optional): Index for the optical transition rates. Defaults to K_IND.
+    - ti (float, optional): INITial time of the simulation. Defaults to 0.0.
     - mode (str, optional): Simulation mode. Can be "Free", "MW", "Laser", or "Laser-MW". Defaults to "Free".
     - progress_bar (str, optional): Option to display a progress bar. Can be "ON" or "OFF". Defaults to "ON".
     - i (int, optional): Counter for the progress bar. Defaults to 0.
@@ -920,10 +920,10 @@ def dynamics_doh_hf(
     """
     # Default values
     if b is None: b = B
-    if om_r is None: om_r = Om_r
-    if om is None: om = omega
-    if p is None: p = phi
-    if w_p is None: w_p = W_p
+    if om_r is None: om_r = OM_R
+    if om is None: om = OMEGA
+    if p is None: p = PHI
+    if w_p is None: w_p = W_P
     
     # Arguments for the Hamiltonian
     args = {"w": om, "p": p}
@@ -935,16 +935,16 @@ def dynamics_doh_hf(
     # Define Hamiltonian and collapse operators based on mode
     match mode:
         case "Free":
-            H = H_doh_hf(b, 0.0)
+            Ham = H_doh_hf(b, 0.0)
             c_ops = L_doh_hf(0.0, k_index=k_index)
         case "MW":
-            H = H_doh_hf(b, om_r)
+            Ham = H_doh_hf(b, om_r)
             c_ops = L_doh_hf(0.0, k_index=k_index)
         case "Laser":
-            H = H_doh_hf(b, 0.0)
+            Ham = H_doh_hf(b, 0.0)
             c_ops = L_doh_hf(w_p, k_index=k_index)
         case "Laser-MW":
-            H = H_doh_hf(b, om_r)
+            Ham = H_doh_hf(b, om_r)
             c_ops = L_doh_hf(w_p, k_index=k_index)
         case _:
             raise ValueError('mode must be one of "Free", "MW", "Laser", or "Laser-MW"')
@@ -953,7 +953,7 @@ def dynamics_doh_hf(
     match progress_bar:
         case "OFF":
             result = qt.mesolve(
-                H,
+                Ham,
                 init_state,
                 np.linspace(ti, tf, t_bins + 1),
                 c_ops,
@@ -963,7 +963,7 @@ def dynamics_doh_hf(
         case "ON":
             print(f"{mode} {int(i + 1)} \n ti    |    tf \n {ti:.2f} | {tf:.2f}")
             result = qt.mesolve(
-                H,
+                Ham,
                 init_state,
                 np.linspace(ti, tf, t_bins + 1),
                 c_ops,
