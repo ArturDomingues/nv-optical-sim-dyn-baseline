@@ -1,0 +1,21 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "nv-optical-sim-dyn-baseline"
+version = "0.1.0"
+description = "Code for simulating NV center optical dynamics"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "qutip",
+    "numpy",
+    "scipy",
+    "matplotlib",
+    "jupyterlab",
+    "tqdm",
+    "ipywidgets"]
+
+[tool.hatch.build.targets.wheel]
+packages = ["core"]

@@ -5,6 +5,7 @@ import scipy as scp
 
 ###################### Definitions ######################
 
+
 def B0(b_0, phi, theta):
     """
     Calculate the magnetic field vector in Cartesian coordinates.
@@ -15,7 +16,14 @@ def B0(b_0, phi, theta):
     Returns:
     - np.array: The magnetic field vector in Cartesian coordinates np.array([Bx, By, Bz]).
     """
-    return np.array([b_0 * np.sin(theta) * np.cos(phi), b_0 * np.sin(theta) * np.sin(phi), b_0 * np.cos(theta)]) #type:ignore
+    return np.array(
+        [
+            b_0 * np.sin(theta) * np.cos(phi),
+            b_0 * np.sin(theta) * np.sin(phi),
+            b_0 * np.cos(theta),
+        ]
+    )  # type:ignore
+
 
 def construct_spin_matrices(basis):
     """
@@ -31,20 +39,34 @@ def construct_spin_matrices(basis):
     """
     if len(basis) == 3:
         # 3-level system (spin-1)
-        s_x = (basis[0] * basis[1].dag() + basis[1] * basis[0].dag() +
-               basis[1] * basis[2].dag() + basis[2] * basis[1].dag()) / np.sqrt(2)
-        
-        s_y = -1j * (basis[0] * basis[1].dag() - basis[1] * basis[0].dag() +
-                     basis[1] * basis[2].dag() - basis[2] * basis[1].dag()) / np.sqrt(2)
-        
+        s_x = (
+            basis[0] * basis[1].dag()
+            + basis[1] * basis[0].dag()
+            + basis[1] * basis[2].dag()
+            + basis[2] * basis[1].dag()
+        ) / np.sqrt(2)
+
+        s_y = (
+            -1j
+            * (
+                basis[0] * basis[1].dag()
+                - basis[1] * basis[0].dag()
+                + basis[1] * basis[2].dag()
+                - basis[2] * basis[1].dag()
+            )
+            / np.sqrt(2)
+        )
+
         s_z = basis[0] * basis[0].dag() - basis[2] * basis[2].dag()
         return s_x, s_y, s_z
 
     else:
         raise ValueError("This function supports only 3 basis elements.")
 
+
 ################# Normalization Functions #####################
-    
+
+
 def normaliz(arr):
     """
     Normalize the input array to the range [0, 1].
@@ -60,6 +82,7 @@ def normaliz(arr):
         Array with values scaled between 0 and 1.
     """
     return (arr - np.min(arr)) / (np.max(arr) - np.min(arr)).real
+
 
 def stand(arr):
     """
@@ -77,6 +100,7 @@ def stand(arr):
     """
     return (arr - np.mean(arr)) / np.std(arr)
 
+
 def max_reg(arr):
     """
     Normalize the input array by dividing by the maximum absolute value.
@@ -92,6 +116,7 @@ def max_reg(arr):
         Normalized array with maximum absolute value scaled to 1.
     """
     return arr / np.max(np.abs(arr))
+
 
 def l2_norm(arr):
     """
@@ -109,9 +134,11 @@ def l2_norm(arr):
     """
     return arr / np.linalg.norm(arr)
 
+
 #################### Fit Functions ##############################
 
-def lorent(x,x0,gam,A,D):
+
+def lorent(x, x0, gam, A, D):
     """Lorentzian function.
     Parameters:
     x (numpy.ndarray): Input array.
@@ -121,9 +148,10 @@ def lorent(x,x0,gam,A,D):
     Returns:
     numpy.ndarray: Lorentzian values.
     """
-    return -A/(1+((x-x0)/gam)**2)*1/(gam*np.pi) + D
+    return -A / (1 + ((x - x0) / gam) ** 2) * 1 / (gam * np.pi) + D
 
-def gen_gauss(x,mu,alp,bet,A,D):
+
+def gen_gauss(x, mu, alp, bet, A, D):
     """Generalized Gaussian function.
     Parameters:
     x (numpy.ndarray): Input array.
@@ -134,9 +162,16 @@ def gen_gauss(x,mu,alp,bet,A,D):
     Returns:
     numpy.ndarray: Generalized Gaussian values.
     """
-    return -A*np.exp(-np.abs((x-mu)/alp)**bet)*bet/(2*alp*np.sqrt(np.pi)*scp.special.gamma(1/bet)) + D
+    return (
+        -A
+        * np.exp(-(np.abs((x - mu) / alp) ** bet))
+        * bet
+        / (2 * alp * np.sqrt(np.pi) * scp.special.gamma(1 / bet))
+        + D
+    )
 
-def damp_sin(x,A,omega,phi,tau, D):
+
+def damp_sin(x, A, omega, phi, tau, D):
     """
     Damped sine function.
 
@@ -151,9 +186,10 @@ def damp_sin(x,A,omega,phi,tau, D):
     Returns:
     numpy.ndarray: Damped sine values.
     """
-    return A * np.exp(-x/tau) * np.sin(omega*x + phi) + D
+    return A * np.exp(-x / tau) * np.sin(omega * x + phi) + D
 
-def damp_cos(x,A,omega,phi,tau, D):
+
+def damp_cos(x, A, omega, phi, tau, D):
     """
     Damped sine function.
 
@@ -168,9 +204,10 @@ def damp_cos(x,A,omega,phi,tau, D):
     Returns:
     numpy.ndarray: Damped sine values.
     """
-    return A * np.exp(-x/tau) * np.cos(omega*x + phi) + D
+    return A * np.exp(-x / tau) * np.cos(omega * x + phi) + D
 
-def expo(x,A, tau, D):
+
+def expo(x, A, tau, D):
     """
     Exponential decay function.
 
@@ -183,9 +220,10 @@ def expo(x,A, tau, D):
     Returns:
     numpy.ndarray: Exponential decay values.
     """
-    return A * np.exp(-x/tau) + D
+    return A * np.exp(-x / tau) + D
 
-def sinn(x, x0, A, omega,phi, D):
+
+def sinn(x, x0, A, omega, phi, D):
     """
     Sin function.
 
@@ -198,4 +236,4 @@ def sinn(x, x0, A, omega,phi, D):
     Returns:
     numpy.ndarray: Exponential decay values.
     """
-    return A * np.sin(omega*(x-x0) + phi) + D
+    return A * np.sin(omega * (x - x0) + phi) + D
