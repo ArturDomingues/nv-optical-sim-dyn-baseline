@@ -14,8 +14,12 @@ dependencies = [
     "scipy",
     "matplotlib",
     "jupyterlab",
+    "jupyter-client",
     "tqdm",
     "ipywidgets"]
 
 [tool.hatch.build.targets.wheel]
 packages = ["core"]
+
+[tool.ruff.lint.per-file-ignores]
+"*.ipynb" = ["F403"]
