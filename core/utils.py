@@ -2,11 +2,12 @@
 
 import numpy as np
 import scipy as scp
+import qutip as qt
 
 ###################### Definitions ######################
 
 
-def B0(b_0, phi, theta):
+def B0(b_0:float, phi:float, theta:float) -> np.ndarray:
     """
     Calculate the magnetic field vector in Cartesian coordinates.
     Parameters:
@@ -25,7 +26,7 @@ def B0(b_0, phi, theta):
     )  # type:ignore
 
 
-def construct_spin_matrices(basis):
+def construct_spin_matrices(basis:list) -> qt.Qobj:
     """
     Constructs the spin matrices for a given basis.
     Parameters:
@@ -67,7 +68,7 @@ def construct_spin_matrices(basis):
 ################# Normalization Functions #####################
 
 
-def normaliz(arr):
+def normaliz(arr:np.ndarray) -> np.ndarray:
     """
     Normalize the input array to the range [0, 1].
 
@@ -237,3 +238,38 @@ def sinn(x, x0, A, omega, phi, D):
     numpy.ndarray: Exponential decay values.
     """
     return A * np.sin(omega * (x - x0) + phi) + D
+
+
+def nearest_idx(x_array, x):
+    """Index of the array element closest to x."""
+    x_array = np.asarray(x_array)
+    return int(np.argmin(np.abs(x_array - x)))
+
+
+def superposition_label(vec_qobj, basis_labels, kmax=3, prob_thresh=0.005, gap=0.15,
+                        decimals=3):
+    """Compact label for an eigenstate as a superposition in ``basis_labels``.
+
+    Picks the dominant components (probability >= prob_thresh, or within ``gap`` of the max),
+    up to ``kmax`` terms, after fixing the global phase. Returns a short string like
+    ``0.707|0> + 0.707|+1>`` (or just ``|0>`` for a pure basis state).
+    """
+    v = np.asarray(vec_qobj.full()).ravel() if hasattr(vec_qobj, "full") else np.asarray(vec_qobj).ravel()
+    if v.size == 0:
+        return basis_labels[0]
+    top = int(np.argmax(np.abs(v)))
+    if np.abs(v[top]) > 0:
+        v = v * np.exp(-1j * np.angle(v[top]))  # fix global phase
+    probs = np.abs(v) ** 2
+    order = np.argsort(probs)[::-1]
+    pmax = probs[order[0]]
+    sel = [i for i in order if (probs[i] >= prob_thresh) or (probs[i] >= pmax - gap)][:kmax]
+    if not sel:
+        sel = [int(order[0])]
+
+    def fmt(i):
+        amp = np.abs(v[i])
+        s = f"{amp:.{decimals}f}"
+        return basis_labels[i] if s == f"{1.0:.{decimals}f}" else f"{s}{basis_labels[i]}"
+
+    return " + ".join(fmt(i) for i in sel)

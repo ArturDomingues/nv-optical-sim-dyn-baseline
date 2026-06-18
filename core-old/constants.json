@@ -1,0 +1,46 @@
+{
+    "Ground_States":{
+        "Strain":0.0,
+        "Zero_Field_Split":2870.0,
+        "Hyperfine":{
+            "Model 2":{
+                "Parallel":3.03,
+                "Perpendicular":3.65
+            },
+            "Model 3":{
+            "Parallel":3.4,
+            "Perpendicular":7.8,
+            "Perpendicular_Prime":0.0,
+            "Anisotropic":0.0
+            }
+        }
+    },
+    "Excited_States":{
+        "Strain":0.0,
+        "Zero_Field_Split":2870.0,
+        "Hyperfine":{
+            "Model 2":{
+                "Parallel":3.03,
+                "Perpendicular":3.65
+            },
+            "Model 3":{
+            "Parallel":3.4,
+            "Perpendicular":7.8,
+            "Perpendicular_Prime":0.0,
+            "Anisotropic":0.0
+            }
+        }
+    },
+    "Microwave":{
+        "Rabi":15.7,
+        "Drive":0.1
+    },
+    "Transition_Rates":{
+
+    },
+    "Laser":1.9,
+    "Magnetictic_Moment":{
+        "Nitrogen_15":431.7, 
+        "Electron":2.8
+    }
+}

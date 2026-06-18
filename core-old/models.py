@@ -2,13 +2,15 @@
 
 import numpy as np
 import qutip as qt
+import json
 
 from .utils import B0, construct_spin_matrices
 
 ###################### Constants ###########################
+_C = json.loads(("constants.json").read_text())
 
 # Strain terms (MHz)
-E_GS = 0.0  # 7.5 is an usual value
+E_GS = 0.0  # 7.5 is an usual value _C["Ground_State"]["Strain"]
 E_ES = 70.0
 
 # Zero-field splitting (MHz)
